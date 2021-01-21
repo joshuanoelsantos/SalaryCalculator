@@ -27,7 +27,7 @@ namespace SalaryCalculator.Core.UnitTests
             decimal expectedSalary)
         {
             _employee.EmployeeType = EmployeeType.Regular;
-            _employee.Salary = Salary.Create(20_000).Value;
+            _employee.Salary = 20_000m;
 
             Calculator calculator = new CalculatorFactory().Create(_employee);
 
@@ -44,7 +44,7 @@ namespace SalaryCalculator.Core.UnitTests
             decimal expectedSalary)
         {
             _employee.EmployeeType = EmployeeType.Contractual;
-            _employee.Salary = Salary.Create(500).Value;
+            _employee.Salary = 500;
 
             Calculator calculator = new CalculatorFactory().Create(_employee);
 

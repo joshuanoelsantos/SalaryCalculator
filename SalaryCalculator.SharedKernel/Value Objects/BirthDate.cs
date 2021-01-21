@@ -25,6 +25,11 @@ namespace SalaryCalculator.SharedKernel
             return Result.Success(new BirthDate(value));
         }
 
+        public override string ToString()
+        {
+            return $"value: {Value}";
+        }
+
         protected override bool EqualsCore(BirthDate other)
         {
             return Value.ToMinimumHourValue() == other.Value.ToMinimumHourValue();

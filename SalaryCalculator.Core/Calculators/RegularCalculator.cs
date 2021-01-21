@@ -19,7 +19,7 @@ namespace SalaryCalculator.Core
 
             decimal computedSalary = _employee.Salary.Value - absentDeduction - taxDeduction;
 
-            return Salary.Create(computedSalary).Value;
+            return computedSalary;
         }
     }
 }

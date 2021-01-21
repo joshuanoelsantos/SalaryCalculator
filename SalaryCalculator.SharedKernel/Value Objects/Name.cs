@@ -27,6 +27,11 @@ namespace SalaryCalculator.SharedKernel
             return Result.Success(new Name(value));
         }
 
+        public override string ToString()
+        {
+            return $"value: {Value}";
+        }
+
         protected override bool EqualsCore(Name other)
         {
             return Value.Equals(other.Value, StringComparison.InvariantCultureIgnoreCase);

@@ -11,7 +11,7 @@ namespace SalaryCalculator.Core
 
         public override Salary ComputeSalary(decimal daysWorked)
         {
-            return Salary.Create(daysWorked * _employee.Salary.Value).Value;
+            return daysWorked * _employee.Salary.Value;
         }
     }
 }

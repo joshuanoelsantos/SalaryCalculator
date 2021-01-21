@@ -32,6 +32,11 @@ namespace SalaryCalculator.SharedKernel
             return Result.Success(new TIN(value));
         }
 
+        public override string ToString()
+        {
+            return $"value: {Value}";
+        }
+
         protected override bool EqualsCore(TIN other)
         {
             return Value.Equals(other.Value, StringComparison.InvariantCultureIgnoreCase);
