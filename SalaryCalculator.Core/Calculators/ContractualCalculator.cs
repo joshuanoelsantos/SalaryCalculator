@@ -1,12 +1,17 @@
-﻿using System;
+﻿using SalaryCalculator.SharedKernel;
+using System;
 
 namespace SalaryCalculator.Core
 {
     public class ContractualCalculator : Calculator
     {
-        public override decimal ComputeSalary(Employee employee)
+        public ContractualCalculator(Employee employee) : base(employee)
         {
-            throw new NotImplementedException();
+        }
+
+        public override Salary ComputeSalary(decimal daysWorked)
+        {
+            return Salary.Create(daysWorked * _employee.Salary.Value).Value;
         }
     }
 }

@@ -1,12 +1,25 @@
-﻿using System;
+﻿using SalaryCalculator.SharedKernel;
+using System;
 
 namespace SalaryCalculator.Core
 {
     public class RegularCalculator : Calculator
     {
-        public override decimal ComputeSalary(Employee employee)
+        private const int DaysPerMonth = 22;
+        private const decimal TaxRate = 0.12m;
+
+        public RegularCalculator(Employee employee) : base(employee)
         {
-            throw new NotImplementedException();
+        }
+
+        public override Salary ComputeSalary(decimal daysAbsent)
+        {
+            decimal absentDeduction = (_employee.Salary.Value / DaysPerMonth) * daysAbsent;
+            decimal taxDeduction = _employee.Salary.Value * TaxRate;
+
+            decimal computedSalary = _employee.Salary.Value - absentDeduction - taxDeduction;
+
+            return Salary.Create(computedSalary).Value;
         }
     }
 }

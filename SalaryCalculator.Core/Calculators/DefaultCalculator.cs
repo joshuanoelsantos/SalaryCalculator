@@ -1,12 +1,17 @@
-﻿using System;
+﻿using SalaryCalculator.SharedKernel;
+using System;
 
 namespace SalaryCalculator.Core
 {
     internal class DefaultCalculator : Calculator
     {
-        public override decimal ComputeSalary(Employee employee)
+        public DefaultCalculator(Employee employee) : base(employee)
         {
-            throw new NotImplementedException();
+        }
+
+        public override Salary ComputeSalary(decimal input)
+        {
+            return Salary.Create(0m).Value;
         }
     }
 }

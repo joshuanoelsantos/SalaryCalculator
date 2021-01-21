@@ -7,13 +7,13 @@
             switch (employee.EmployeeType)
             {
                 case EmployeeType.Regular:
-                    return new RegularCalculator();
+                    return new RegularCalculator(employee);
 
                 case EmployeeType.Contractual:
-                    return new ContractualCalculator();
+                    return new ContractualCalculator(employee);
 
                 default:
-                    return new DefaultCalculator();
+                    return new DefaultCalculator(employee);
             }
         }
     }

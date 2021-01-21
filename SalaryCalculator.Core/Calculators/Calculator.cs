@@ -1,7 +1,16 @@
-﻿namespace SalaryCalculator.Core
+﻿using SalaryCalculator.SharedKernel;
+
+namespace SalaryCalculator.Core
 {
     public abstract class Calculator
     {
-        public abstract decimal ComputeSalary(Employee employee);
+        protected readonly Employee _employee;
+
+        public Calculator(Employee employee)
+        {
+            _employee = employee;
+        }
+
+        public abstract Salary ComputeSalary(decimal input);
     }
 }
