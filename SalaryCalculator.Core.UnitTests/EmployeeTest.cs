@@ -21,7 +21,7 @@ namespace SalaryCalculator.Core.UnitTests
             "12345678901234567890123456789012345678901234567890";
 
         [Fact]
-        public void WhenBirthDateIsValid_ThenReturnResultTrue()
+        public void WhenBirthDateIsValid_ThenResultIsNotFailure()
         {
             DateTime birthDate = new DateTime(1994, 2, 8);
 
@@ -32,24 +32,24 @@ namespace SalaryCalculator.Core.UnitTests
         }
 
         [Fact]
-        public void WhenBirthDateIsEarlierThanYear1900_ThenReturnResultFailure()
+        public void WhenBirthDateIsEarlierThanYear1900_ThenResultIsFailure()
         {
             DateTime birthDate = new DateTime(1899, 12, 31);
 
             Result<BirthDate> birthDateOrError = BirthDate.Create(birthDate);
 
-            string errorMessage = "Birth date cannot be earlier than year 1900";
+            string errorMessage = "Birth date should not be earlier than year 1900";
             AssertFalseValueObject(birthDateOrError, errorMessage);
         }
 
         [Fact]
-        public void WhenBirthDateIsLaterThanOrEqualToday_ThenReturnResultFailure()
+        public void WhenBirthDateIsLaterThanOrEqualToday_ThenResultIsFailure()
         {
             DateTime birthDate = DateTime.Now;
 
             Result<BirthDate> birthDateOrError = BirthDate.Create(birthDate);
 
-            string errorMessage = "Birth date cannot be greater than or equal today";
+            string errorMessage = "Birth date should not be greater than or equal today";
             AssertFalseValueObject(birthDateOrError, errorMessage);
         }
 
@@ -57,7 +57,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData("a")]
         [InlineData("Joshua Santos")]
         [InlineData(_500Characters)]
-        public void WhenNameIsValid_ThenReturnResultTrue(string name)
+        public void WhenNameIsValid_ThenResultIsNotFailure(string name)
         {
             Result<Name> nameOrError = Name.Create(name);
 
@@ -70,7 +70,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("   ")]
-        public void WhenNameIsNullOrEmpty_ThenReturnResultFailure(string name)
+        public void WhenNameIsNullOrEmpty_ThenResultIsFailure(string name)
         {
             Result<Name> nameOrError = Name.Create(name);
 
@@ -79,7 +79,7 @@ namespace SalaryCalculator.Core.UnitTests
         }
 
         [Fact]
-        public void WhenNameIsMoreThan500Characters_ThenReturnResultFailure()
+        public void WhenNameIsMoreThan500Characters_ThenResultIsFailure()
         {
             string name = _500Characters + "1";
 
@@ -94,7 +94,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData("123-456-789")]
         [InlineData("12345678900000")]
         [InlineData("123-456-789-00000")]
-        public void WhenTINIsValid_ThenReturnResultTrue(string tin)
+        public void WhenTINIsValid_ThenResultIsNotFailure(string tin)
         {
             Result<TIN> tinOrError = TIN.Create(tin);
 
@@ -107,7 +107,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("   ")]
-        public void WhenTINIsNullOrEmpty_ThenReturnResultFailure(string tin)
+        public void WhenTINIsNullOrEmpty_ThenResultIsFailure(string tin)
         {
             Result<TIN> tinOrError = TIN.Create(tin);
 
@@ -120,7 +120,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData("12")]
         [InlineData("123")]
         [InlineData("12345678")]
-        public void WhenTINIsLessThan9Characters_ThenReturnResultFailure(string tin)
+        public void WhenTINIsLessThan9Characters_ThenResultIsFailure(string tin)
         {
             Result<TIN> tinOrError = TIN.Create(tin);
 
@@ -129,7 +129,7 @@ namespace SalaryCalculator.Core.UnitTests
         }
 
         [Fact]
-        public void WhenTINIsMoreThan17Characters_ThenReturnResultFailure()
+        public void WhenTINIsMoreThan17Characters_ThenResultIsFailure()
         {
             string tin = "123456789012345678";
 
@@ -145,7 +145,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData(20_000)]
         [InlineData(500)]
         [InlineData(70_000.75)]
-        public void WhenSalaryIsValid_ThenReturnResultTrue(decimal salary)
+        public void WhenSalaryIsValid_ThenResultIsNotFailure(decimal salary)
         {
             Result<Salary> salaryOrError = Salary.Create(salary);
 
@@ -174,7 +174,7 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData(-20_000)]
         [InlineData(-500)]
         [InlineData(-70_000.75)]
-        public void WhenSalaryIsLessThanOrEqualToZero_ThenReturnResultFailure(decimal salary)
+        public void WhenSalaryIsLessThanOrEqualToZero_ThenResultIsFailure(decimal salary)
         {
             Result<Salary> salaryOrError = Salary.Create(salary);
 
@@ -186,12 +186,46 @@ namespace SalaryCalculator.Core.UnitTests
         [InlineData(Salary.MaximumAmount + 1)]
         [InlineData(Salary.MaximumAmount + 0.01)]
         [InlineData(Salary.MaximumAmount + 0.015)]
-        public void WhenSalaryIsLessIsGreaterThanMaximumAmount_ThenReturnResultFailure(decimal salary)
+        public void WhenSalaryIsLessIsGreaterThanMaximumAmount_ThenResultIsFailure(decimal salary)
         {
             Result<Salary> salaryOrError = Salary.Create(salary);
 
             string errorMessage = $"Salary should not be greater than maximum amount [{Salary.MaximumAmount}]";
             AssertFalseValueObject(salaryOrError, errorMessage);
+        }
+
+        [Fact]
+        public void WhenEmployeeIsNotValid_ThenResultIsFailure()
+        {
+            DateTime birthDate = new DateTime(1899, 12, 31);
+            Result<BirthDate> birthDateOrError = BirthDate.Create(birthDate);
+            string birthDateErrorMessage = "Birth date should not be earlier than year 1900";
+
+            string name = null;
+            Result<Name> nameOrError = Name.Create(name);
+            string nameErrorMessage = "Name should not be empty";
+
+            string tin = null;
+            Result<TIN> tinOrError = TIN.Create(tin);
+            string tinErrorMessage = "TIN should not be empty";
+
+            decimal salary = 0;
+            Result<Salary> salaryOrError = Salary.Create(salary);
+            string salaryErrorMessage = "Salary should not be less than or equal to zero";
+
+            Result result = Result.Combine(
+                birthDateOrError,
+                nameOrError,
+                tinOrError,
+                salaryOrError);
+
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().Be(string.Join(
+                ", ",
+                birthDateErrorMessage,
+                nameErrorMessage,
+                tinErrorMessage,
+                salaryErrorMessage));
         }
 
         #region Private Methods
