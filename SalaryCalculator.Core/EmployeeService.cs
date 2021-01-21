@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SalaryCalculator.Core
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _repository;
 
@@ -28,7 +28,7 @@ namespace SalaryCalculator.Core
             return await _repository.Create(employee);
         }
 
-        public async Task<Employee> Edit(Employee employee)
+        public async Task<Employee> Update(Employee employee)
         {
             return await _repository.Update(employee);
         }
