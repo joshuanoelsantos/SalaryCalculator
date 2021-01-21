@@ -16,20 +16,20 @@ namespace SalaryCalculator.SharedKernel
             Value = value;
         }
 
-        public static Result<TIN> Create(string tin)
+        public static Result<TIN> Create(string value)
         {
-            tin = (tin ?? string.Empty).Trim();
+            value = (value ?? string.Empty).Trim();
 
-            if (tin.Length == 0)
+            if (value.Length == 0)
                 return Result.Failure<TIN>("TIN should not be empty");
 
-            if (tin.Length < MinimumCharacters)
+            if (value.Length < MinimumCharacters)
                 return Result.Failure<TIN>($"TIN should not be less than {MinimumCharacters} characters");
 
-            if (tin.Length > MaximumCharacters)
+            if (value.Length > MaximumCharacters)
                 return Result.Failure<TIN>($"TIN should not be more than {MaximumCharacters} characters");
 
-            return Result.Success(new TIN(tin));
+            return Result.Success(new TIN(value));
         }
 
         protected override bool EqualsCore(TIN other)

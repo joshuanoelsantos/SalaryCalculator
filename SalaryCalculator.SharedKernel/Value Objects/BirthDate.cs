@@ -14,15 +14,15 @@ namespace SalaryCalculator.SharedKernel
             Value = value;
         }
 
-        public static Result<BirthDate> Create(DateTime birthDate)
+        public static Result<BirthDate> Create(DateTime value)
         {
-            if (birthDate.Year < MinimumYear)
-                return Result.Failure<BirthDate>($"Birth date cannot be earlier than year {MinimumYear}");
+            if (value.Year < MinimumYear)
+                return Result.Failure<BirthDate>($"Birth date should not be earlier than year {MinimumYear}");
 
-            if (birthDate.ToMinimumHourValue() >= DateTime.Now.ToMinimumHourValue())
-                return Result.Failure<BirthDate>("Birth date cannot be greater than or equal today");
+            if (value.ToMinimumHourValue() >= DateTime.Now.ToMinimumHourValue())
+                return Result.Failure<BirthDate>("Birth date should not be greater than or equal today");
 
-            return Result.Success(new BirthDate(birthDate));
+            return Result.Success(new BirthDate(value));
         }
 
         protected override bool EqualsCore(BirthDate other)

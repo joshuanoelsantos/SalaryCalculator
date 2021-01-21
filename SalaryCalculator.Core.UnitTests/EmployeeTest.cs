@@ -43,7 +43,7 @@ namespace SalaryCalculator.Core.UnitTests
         }
 
         [Fact]
-        public void WhenBirthDateIsLaterThanToday_ThenReturnResultFailure()
+        public void WhenBirthDateIsLaterThanOrEqualToday_ThenReturnResultFailure()
         {
             DateTime birthDate = DateTime.Now;
 
@@ -137,6 +137,61 @@ namespace SalaryCalculator.Core.UnitTests
 
             string errorMessage = "TIN should not be more than 17 characters";
             AssertFalseValueObject(tinOrError, errorMessage);
+        }
+
+        [Theory]
+        [InlineData(0.01)]
+        [InlineData(1_234_567.89)]
+        [InlineData(20_000)]
+        [InlineData(500)]
+        [InlineData(70_000.75)]
+        public void WhenSalaryIsValid_ThenReturnResultTrue(decimal salary)
+        {
+            Result<Salary> salaryOrError = Salary.Create(salary);
+
+            AssertTrueValueObject(salaryOrError);
+            salaryOrError.Value.Value.Should().Be(salary);
+        }
+
+        [Theory]
+        [InlineData(1_234_567.890, 1_234_567.89)]
+        [InlineData(20_000.3456, 20_000.35)]
+        [InlineData(500.78901, 500.79)]
+        [InlineData(70_000.234_567, 70_000.23)]
+        public void WhenSalaryInputIsMoreThan3Decimals_ThenReturnRoundedValue(
+            decimal salaryInput,
+            decimal expectedSalary)
+        {
+            Result<Salary> salaryOrError = Salary.Create(salaryInput);
+
+            AssertTrueValueObject(salaryOrError);
+            salaryOrError.Value.Value.Should().Be(expectedSalary);
+        }
+
+        [Theory]
+        [InlineData(-0.01)]
+        [InlineData(-123_456_789.01)]
+        [InlineData(-20_000)]
+        [InlineData(-500)]
+        [InlineData(-70_000.75)]
+        public void WhenSalaryIsLessThanOrEqualToZero_ThenReturnResultFailure(decimal salary)
+        {
+            Result<Salary> salaryOrError = Salary.Create(salary);
+
+            string errorMessage = "Salary should not be less than or equal to zero";
+            AssertFalseValueObject(salaryOrError, errorMessage);
+        }
+
+        [Theory]
+        [InlineData(Salary.MaximumAmount + 1)]
+        [InlineData(Salary.MaximumAmount + 0.01)]
+        [InlineData(Salary.MaximumAmount + 0.015)]
+        public void WhenSalaryIsLessIsGreaterThanMaximumAmount_ThenReturnResultFailure(decimal salary)
+        {
+            Result<Salary> salaryOrError = Salary.Create(salary);
+
+            string errorMessage = $"Salary should not be greater than maximum amount [{Salary.MaximumAmount}]";
+            AssertFalseValueObject(salaryOrError, errorMessage);
         }
 
         #region Private Methods

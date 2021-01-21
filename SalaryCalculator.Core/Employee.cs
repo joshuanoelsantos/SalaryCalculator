@@ -8,5 +8,6 @@ namespace SalaryCalculator.Core
         public BirthDate BirthDate { get; set; }
         public TIN TIN { get; set; }
         public EmployeeType EmployeeType { get; set; }
+        public Salary Salary { get; set; }
     }
 }

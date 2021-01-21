@@ -14,17 +14,17 @@ namespace SalaryCalculator.SharedKernel
             Value = value;
         }
 
-        public static Result<Name> Create(string name)
+        public static Result<Name> Create(string value)
         {
-            name = (name ?? string.Empty).Trim();
+            value = (value ?? string.Empty).Trim();
 
-            if (name.Length == 0)
+            if (value.Length == 0)
                 return Result.Failure<Name>("Name should not be empty");
 
-            if (name.Length > MaximumCharacters)
+            if (value.Length > MaximumCharacters)
                 return Result.Failure<Name>($"Name should not be more than {MaximumCharacters} characters");
 
-            return Result.Success(new Name(name));
+            return Result.Success(new Name(value));
         }
 
         protected override bool EqualsCore(Name other)
