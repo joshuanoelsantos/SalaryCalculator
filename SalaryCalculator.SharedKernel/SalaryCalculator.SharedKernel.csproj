@@ -8,8 +8,4 @@
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.14.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SalaryCalculator.SharedKernel\SalaryCalculator.SharedKernel.csproj" />
-  </ItemGroup>
-
 </Project>
