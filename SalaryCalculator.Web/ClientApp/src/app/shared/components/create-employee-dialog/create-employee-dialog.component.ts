@@ -14,16 +14,19 @@ import { EmployeeFormComponent } from "../employee-form/employee-form.component"
     employeeForm: EmployeeFormComponent;
 
     employee: Employee;
+		serverErrorMessage: string;
 
     constructor(public dialogRef: MatDialogRef<CreateEmployeeDialog>){
       this.employee = new Employee();
     }
 
     onSave(): void {
-      if (!this.employeeForm.valid) {
-        return;
-      }
-      this.dialogRef.close();
-    }
+			if (!this.employeeForm.valid) {
+				this.serverErrorMessage = "sfsdf 1";
+				return;
+			}
+			this.serverErrorMessage = "sfsdf 2";
+			// this.dialogRef.close();
+		}
   
   }

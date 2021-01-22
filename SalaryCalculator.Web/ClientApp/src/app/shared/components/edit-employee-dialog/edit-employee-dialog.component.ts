@@ -14,6 +14,7 @@ import { EmployeeFormComponent } from "../employee-form/employee-form.component"
     employeeForm: EmployeeFormComponent;
 
 		employee: Employee;
+		serverErrorMessage: string;
 
     constructor(public dialogRef: MatDialogRef<EditEmployeeDialog>,
         @Inject(MAT_DIALOG_DATA) private data: any
@@ -22,10 +23,12 @@ import { EmployeeFormComponent } from "../employee-form/employee-form.component"
 		}
 
     onSave(): void {
-        if (!this.employeeForm.valid) {
-          return;
-        }
-        this.dialogRef.close();
-      }
+			if (!this.employeeForm.valid) {
+				this.serverErrorMessage = "sfsdf 1";
+				return;
+			}
+			this.serverErrorMessage = "sfsdf 2";
+			// this.dialogRef.close();
+		}
   
   }

@@ -13,6 +13,9 @@ export class EmployeeFormComponent implements OnInit {
 	@Input()
 	employee: Employee;
 
+	@Input()
+	serverErrorMessage: string;
+
 	form: FormGroup = this.fb.group({
 		id: [null],
 		name: [null, [Validators.required, Validators.maxLength(500)]],
@@ -30,7 +33,6 @@ export class EmployeeFormComponent implements OnInit {
 	employeeTypes: string[];
 
 	constructor(private fb: FormBuilder) {
-
 			this.employeeTypes= ["Regular", "Contractual"];
 		}
 

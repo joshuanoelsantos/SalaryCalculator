@@ -72,4 +72,10 @@
 			<mat-error>Please select a date</mat-error>
 		</mat-form-field>
 	</div>
+
+	<div class="row" *ngIf="serverErrorMessage">
+		<div class="col-12 alert alert-danger">
+			{{serverErrorMessage}}
+		</div>
+	</div>
 </form>
