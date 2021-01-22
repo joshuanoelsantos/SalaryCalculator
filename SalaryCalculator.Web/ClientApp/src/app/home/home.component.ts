@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateEmployeeDialog } from '../shared/create-employee-dialog/create-employee-dialog.component';
 import { Employee } from '../shared/employee';
 
 @Component({
@@ -14,6 +16,8 @@ export class HomeComponent implements OnInit {
   employee: Employee;
 
   employees: Employee[];
+
+  constructor(private dialog: MatDialog){}
 
   ngOnInit() {
 
@@ -55,7 +59,12 @@ export class HomeComponent implements OnInit {
   onEmployeeSelection(selectedEmployee: Employee, event, isOptionCreateNew: boolean) {
     if (event.isUserInput) {
       if(isOptionCreateNew === true) {
-        console.log('Create New');
+
+        const dialogRef = this.dialog.open(CreateEmployeeDialog, {
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+        });
 
       } else {
         this.employee = selectedEmployee;

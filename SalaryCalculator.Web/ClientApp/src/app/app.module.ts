@@ -12,12 +12,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import {
+  MatMomentDateModule,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+
 import { EmployeeTypeComponent } from 'src/app/shared/components/employee-type/employee-type.component';
+import { CreateEmployeeDialog } from 'src/app/shared/create-employee-dialog/create-employee-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +33,9 @@ import { EmployeeTypeComponent } from 'src/app/shared/components/employee-type/e
     NavMenuComponent,
     HomeComponent,
     EmployeeTypeComponent,
+    CreateEmployeeDialog
   ],
+  entryComponents: [CreateEmployeeDialog],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,
@@ -36,16 +46,19 @@ import { EmployeeTypeComponent } from 'src/app/shared/components/employee-type/e
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMomentDateModule,
     MatSelectModule,
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
     ]),
   ],
-  providers: [],
+  providers: [{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

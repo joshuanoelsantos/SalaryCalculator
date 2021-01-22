@@ -1,0 +1,15 @@
+.field-label,
+.field-value {
+  display: block;
+}
+.field-value {
+  font-size: 0.75rem;
+}
+
+mat-error {
+  font-size: 12px;
+}
+
+mat-form-field {
+  margin-bottom: 20px;
+}

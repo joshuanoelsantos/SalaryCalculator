@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>Create Employee</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+  
+    <div class="row">
+      
+        <mat-form-field appearance="fill" color="primary" class="col-lg-6">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            formControlName="name"/>
+          <mat-error *ngIf="name && name.errors?.required && (name.dirty || name.touched)">
+            Name is required.
+          </mat-error>
+          <mat-error *ngIf="name && name.errors?.maxlength && (name.dirty || name.touched)">
+            Name cannot be greather than 500 characters.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" color="primary" class="col-lg-6">
+          <mat-label>Salary</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="salary"
+          />
+          <mat-error *ngIf="salary && salary.errors?.required && (salary.dirty || salary.touched)">
+            Salary is required.
+          </mat-error>
+        </mat-form-field>
+    </div>
+  
+    <div class="row">
+      <mat-form-field appearance="fill" color="primary" class="col-lg-6">
+        <mat-label>TIN</mat-label>
+        <input
+          matInput
+          formControlName="tin"
+        />
+        <mat-error *ngIf="tin && tin.errors?.required && (tin.dirty || tin.touched)">
+          TIN is required.
+        </mat-error>
+        <mat-error *ngIf="tin && tin.errors?.minlength && (tin.dirty || tin.touched)">
+          TIN cannot be less than 9 characters.
+        </mat-error>
+        <mat-error *ngIf="tin && tin.errors?.maxlength && (tin.dirty || tin.touched)">
+          TIN cannot be greather than 17 characters.
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" color="primary" class="col-lg-6">
+        <mat-label>Employee Type</mat-label>
+          <mat-select matInput formControlName="type">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let type of employeeTypes" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Please select a type</mat-error>
+        </mat-form-field>
+    </div>
+  
+    <div class="row">
+
+      <mat-form-field appearance="fill" color="primary" class="col-lg-6">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="birthDate" formControlName="birthDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="birthDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #birthDate></mat-datepicker>
+        <mat-error>Please select a date</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <!-- <div class="col-4">
+    <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+  </div> -->
+  <!-- <div class="col-8" align="end"> -->
+    <button mat-raised-button color="primary" (click)="onSave()">Create</button>
+    <button mat-button [mat-dialog-close]="employee" cdkFocusInitial>Close</button>
+  <!-- </div> -->
+</div>
