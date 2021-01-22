@@ -1,0 +1,38 @@
+<div mat-dialog-title align="center">
+	Employee: {{employee.name}}<br/>
+	<app-employee-type [value]="employee?.type"></app-employee-type>
+</div>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+  
+		<div class="row">
+	
+			<mat-form-field appearance="fill" color="primary" class="col-lg-12">
+				<mat-label>{{ employee.type == 0 ? "Days Absent" : "Days Worked" }}</mat-label>
+				<input
+					type="number"
+					matInput
+					formControlName="input"
+					autocomplete="off"
+				/>
+				<mat-error>{{ employee.type == 0 ? "Days Absent" : "Days Worked" }} is required.</mat-error>
+			</mat-form-field>
+		</div>
+	
+		<div class="row" *ngIf="computedSalary">
+			<div class="col-12 alert alert-success">
+				The computed salary is: {{computedSalary | currency:"PHP"}}
+			</div>
+		</div>
+	
+		<div class="row" *ngIf="serverErrorMessage">
+			<div class="col-12 alert alert-danger">
+				{{serverErrorMessage}}
+			</div>
+		</div>
+	</form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="onCalculate()">Calculate</button>
+  <button mat-button [mat-dialog-close] cdkFocusInitial>Close</button>
+</div>

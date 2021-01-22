@@ -29,6 +29,7 @@ import {
 import { EmployeeTypeComponent } from 'src/app/shared/components/employee-type/employee-type.component';
 import { CreateEmployeeDialog } from 'src/app/shared/components/create-employee-dialog/create-employee-dialog.component';
 import { EditEmployeeDialog } from 'src/app/shared/components/edit-employee-dialog/edit-employee-dialog.component';
+import { CalculateSalaryDialog } from 'src/app/shared/components/calculate-salary-dialog/calculate-salary-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,12 @@ import { EditEmployeeDialog } from 'src/app/shared/components/edit-employee-dial
     EmployeeTypeComponent,
     CreateEmployeeDialog,
     EditEmployeeDialog,
+    CalculateSalaryDialog,
   ],
   entryComponents: [
     CreateEmployeeDialog,
     EditEmployeeDialog,
+    CalculateSalaryDialog,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { CalculateSalaryDialog } from '../shared/components/calculate-salary-dialog/calculate-salary-dialog.component';
 import { CreateEmployeeDialog } from '../shared/components/create-employee-dialog/create-employee-dialog.component';
 import { EditEmployeeDialog } from '../shared/components/edit-employee-dialog/edit-employee-dialog.component';
 import { Employee } from '../shared/employee';
@@ -92,6 +93,15 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result,false));
+  }
+
+  public calculateSalary() {
+    this.dialog.open(CalculateSalaryDialog, {
+      width: "400px",
+      data:{
+        employee: this.employee
+      }
+    });
   }
 
   private afterSaveFunction(result, isUpdate: boolean)

@@ -130,7 +130,7 @@ namespace SalaryCalculator.Web.Controllers
             return employeeId;
         }
 
-        [HttpPut("{id}/calculate")]
+        [HttpPost("{id}/calculate")]
         public async Task<ActionResult<decimal>> CalculateSalary(string id, [FromBody] decimal input)
         {
             Guid employeeId;

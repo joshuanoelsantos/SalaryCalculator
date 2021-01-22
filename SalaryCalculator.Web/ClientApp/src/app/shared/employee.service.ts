@@ -29,4 +29,8 @@ export class EmployeeService{
   delete(id: string): Observable<Employee> {
     return this.httpClient.delete<Employee>(`${this.baseUrl}/${id}`);
   }
+
+  calculateSalary(id: string, input: number): Observable<number> {
+    return this.httpClient.post<number>(`${this.baseUrl}/${id}/calculate`, input);
+  }
 }
