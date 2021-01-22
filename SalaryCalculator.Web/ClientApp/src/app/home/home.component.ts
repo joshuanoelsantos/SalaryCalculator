@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateEmployeeDialog } from '../shared/create-employee-dialog/create-employee-dialog.component';
+import { CreateEmployeeDialog } from '../shared/components/create-employee-dialog/create-employee-dialog.component';
+import { EditEmployeeDialog } from '../shared/components/edit-employee-dialog/edit-employee-dialog.component';
 import { Employee } from '../shared/employee';
 
 @Component({
@@ -60,16 +61,30 @@ export class HomeComponent implements OnInit {
     if (event.isUserInput) {
       if(isOptionCreateNew === true) {
 
-        const dialogRef = this.dialog.open(CreateEmployeeDialog, {
-        });
-    
-        dialogRef.afterClosed().subscribe(result => {
-        });
+        this.createNewEmployee();
 
       } else {
         this.employee = selectedEmployee;
       }
       
     }
+  }
+
+  public editEmployee() {
+    const dialogRef = this.dialog.open(EditEmployeeDialog, {
+      data:{
+        employee: this.employee
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  private createNewEmployee() {
+    const dialogRef = this.dialog.open(CreateEmployeeDialog, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }

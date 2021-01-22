@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EmployeeFormComponent } from './shared/components/employee-form/employee-form.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,17 +26,23 @@ import {
 } from '@angular/material-moment-adapter';
 
 import { EmployeeTypeComponent } from 'src/app/shared/components/employee-type/employee-type.component';
-import { CreateEmployeeDialog } from 'src/app/shared/create-employee-dialog/create-employee-dialog.component';
+import { CreateEmployeeDialog } from 'src/app/shared/components/create-employee-dialog/create-employee-dialog.component';
+import { EditEmployeeDialog } from 'src/app/shared/components/edit-employee-dialog/edit-employee-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    EmployeeFormComponent,
     EmployeeTypeComponent,
-    CreateEmployeeDialog
+    CreateEmployeeDialog,
+    EditEmployeeDialog,
   ],
-  entryComponents: [CreateEmployeeDialog],
+  entryComponents: [
+    CreateEmployeeDialog,
+    EditEmployeeDialog,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,

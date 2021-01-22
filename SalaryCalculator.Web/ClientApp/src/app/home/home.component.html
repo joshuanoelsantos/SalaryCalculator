@@ -43,15 +43,20 @@
                 <td class="font-bold">Salary:</td>
                 <td>{{ employee?.salary | currency:"PHP" }}</td>
                 <td></td>
-                <td></td>
+                <td>
+
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="row">
-        <div class="col-12">
+        <div class="col-6" align="end">
           <button mat-raised-button color="primary">Calculate Salary</button>
+        </div>
+        <div class="col-6" align="start">
+          <button mat-raised-button color="accent" (click)="editEmployee()">Edit Employee</button>
         </div>
       </div>
     </mat-card-content>
