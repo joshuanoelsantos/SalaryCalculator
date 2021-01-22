@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { Employee } from '../shared/employee';
 
 @Component({
@@ -32,7 +30,7 @@ export class HomeComponent implements OnInit {
       id: "",
       name: "Noel Santos",
       tin: "123-456-789",
-      type: 1,
+      type: 0,
       birthDate: new Date(1994, 2, 8),
       salary: 70000,
     },{

@@ -1,0 +1,8 @@
+.type-style {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+}

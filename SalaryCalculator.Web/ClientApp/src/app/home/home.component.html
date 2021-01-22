@@ -37,7 +37,7 @@
                 <td class="font-bold">TIN:</td>
                 <td>{{ employee?.tin }}</td>
                 <td class="font-bold">Employee Type:</td>
-                <td>{{ employee?.type }}</td>
+                <td><app-employee-type [value]="employee?.type"></app-employee-type></td>
               </tr>
               <tr>
                 <td class="font-bold">Salary:</td>
