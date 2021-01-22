@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
   public editEmployee() {
     const dialogRef = this.dialog.open(EditEmployeeDialog, {
       data:{
+        width: '600px',
         employee: this.employee
       }
     });
@@ -66,14 +67,41 @@ export class HomeComponent implements OnInit {
   }
 
   private createNewEmployee() {
-    const dialogRef = this.dialog.open(CreateEmployeeDialog, {});
+    const dialogRef = this.dialog.open(CreateEmployeeDialog, {
+      width: '600px'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
+      
+      if(result) {
+        this.refreshListWithSavedEmployee(result);
+      }
+
     });
   }
 
   
 
+
+  private refreshListWithSavedEmployee(employee: Employee) {
+    this.employeeService
+      .getAll()
+      .subscribe((data) => {
+        this.employees = data;
+
+        if (this.employees && this.employees.length && employee) {
+          let filteredList = this.employees.filter(x => x.id == employee.id);
+
+          if(filteredList.length) {
+            this.selectedEmployee = filteredList[0];
+          }
+          
+        } else {
+          this.selectedEmployee = null;
+        }
+
+      });
+  }
     // this.employee = {
     //   id: "",
     //   name: "Joshua Santos",

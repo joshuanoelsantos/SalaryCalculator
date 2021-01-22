@@ -1,6 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
 import { MatDialogRef } from "@angular/material";
 import { Employee } from "../../employee";
+import { EmployeeService } from "../../employee.service";
 import { EmployeeFormComponent } from "../employee-form/employee-form.component";
 
 
@@ -16,17 +17,31 @@ import { EmployeeFormComponent } from "../employee-form/employee-form.component"
     employee: Employee;
 		serverErrorMessage: string;
 
-    constructor(public dialogRef: MatDialogRef<CreateEmployeeDialog>){
+    constructor(
+      private employeeService: EmployeeService,
+      private dialogRef: MatDialogRef<CreateEmployeeDialog>){
+
       this.employee = new Employee();
     }
 
     onSave(): void {
 			if (!this.employeeForm.valid) {
-				this.serverErrorMessage = "sfsdf 1";
 				return;
 			}
-			this.serverErrorMessage = "sfsdf 2";
-			// this.dialogRef.close();
+      
+      this.employeeService
+      .create(this.employeeForm.value)
+      .subscribe(
+        (data) => {
+          this.dialogRef.close(data);
+        },
+        (error) => {
+          if(error && error.error && error.error.error) {
+            this.serverErrorMessage = error.error.error;
+          } else {
+            this.serverErrorMessage = "Cannot save your data this time. Please try again later.";
+          }
+        });
 		}
   
   }
