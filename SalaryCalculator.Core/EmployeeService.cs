@@ -23,11 +23,6 @@ namespace SalaryCalculator.Core
             return await _repository.GetAll();
         }
 
-        public async Task<List<Employee>> Search(string searchedEmployee)
-        {
-            return await _repository.Search(searchedEmployee);
-        }
-
         public async Task<Employee> Create(Employee employee)
         {
             return await _repository.Create(employee);

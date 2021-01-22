@@ -6,11 +6,6 @@
   </app-employee-form>
 </div>
 <div mat-dialog-actions align="end">
-  <div class="col-4">
-    <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
-  </div>
-  <div class="col-8" align="end">
-    <button mat-raised-button color="primary" (click)="onSave()">Save</button>
-    <button mat-button [mat-dialog-close]="employee" cdkFocusInitial>Close</button>
-  </div>
+	<button mat-raised-button color="primary" (click)="onSave()">Save</button>
+	<button mat-button [mat-dialog-close]="employee" cdkFocusInitial>Close</button>
 </div>

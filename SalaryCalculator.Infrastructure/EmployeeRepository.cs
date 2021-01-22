@@ -1,4 +1,5 @@
 ﻿using SalaryCalculator.Core;
+using SalaryCalculator.SharedKernel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,17 @@ namespace SalaryCalculator.Infrastructure
 
         public EmployeeRepository()
         {
-            employees = new List<Employee>();
+            employees = new List<Employee>()
+            {
+                new Employee()
+                {
+                    Name = Name.Create("Joshua Santos").Value,
+                    BirthDate = BirthDate.Create(new DateTime(1994, 2, 8)).Value,
+                    TIN = TIN.Create("123456789").Value,
+                    EmployeeType = EmployeeType.Regular,
+                    Salary = 20_000m
+                }
+            };
         }
 
         public Task<Employee> Find(Guid employeeId)
@@ -27,13 +38,6 @@ namespace SalaryCalculator.Infrastructure
         public Task<List<Employee>> GetAll()
         {
             return Task.FromResult(employees.ToList());
-        }
-
-        public Task<List<Employee>> Search(string searchedName)
-        {
-            return Task.FromResult(employees
-                .Where(x => x.Name.Value.Contains(searchedName))
-                .ToList());
         }
 
         public Task<Employee> Create(Employee employee)

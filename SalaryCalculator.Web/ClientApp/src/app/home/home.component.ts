@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeDialog } from '../shared/components/create-employee-dialog/create-employee-dialog.component';
 import { EditEmployeeDialog } from '../shared/components/edit-employee-dialog/edit-employee-dialog.component';
 import { Employee } from '../shared/employee';
+import { EmployeeService } from '../shared/employee.service';
 
 @Component({
   selector: 'app-home',
@@ -16,43 +17,26 @@ export class HomeComponent implements OnInit {
 
   employee: Employee;
 
+  selectedEmployee: Employee;
+
   employees: Employee[];
 
-  constructor(private dialog: MatDialog){}
+  constructor(private employeeService: EmployeeService, private dialog: MatDialog){}
 
   ngOnInit() {
 
-    this.employee = {
-      id: "",
-      name: "Joshua Santos",
-      tin: "123-456-789",
-      type: 1,
-      birthDate: new Date(1994, 2, 8),
-      salary: 70000,
-    };
+    this.employeeService
+      .getAll()
+      .subscribe((data) => {
+        this.employees = data;
 
-    this.employees = [{
-      id: "",
-      name: "Noel Santos",
-      tin: "123-456-789",
-      type: 0,
-      birthDate: new Date(1994, 2, 8),
-      salary: 70000,
-    },{
-      id: "",
-      name: "Josh Castolome",
-      tin: "123-456-789",
-      type: 1,
-      birthDate: new Date(1994, 2, 8),
-      salary: 70000,
-    },{
-      id: "",
-      name: "Joshua 2 Santos",
-      tin: "123-456-789",
-      type: 1,
-      birthDate: new Date(1994, 2, 8),
-      salary: 70000,
-    }];
+        if(this.employees && this.employees.length) {
+          this.selectedEmployee = this.employees[0];
+        } else {
+          this.selectedEmployee = null;
+        }
+
+      });
   }
 
   
@@ -87,4 +71,38 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+  
+
+    // this.employee = {
+    //   id: "",
+    //   name: "Joshua Santos",
+    //   tin: "123-456-789",
+    //   type: 1,
+    //   birthDate: new Date(1994, 2, 8),
+    //   salary: 70000,
+    // };
+
+    // this.employees = [{
+    //   id: "",
+    //   name: "Noel Santos",
+    //   tin: "123-456-789",
+    //   type: 0,
+    //   birthDate: new Date(1994, 2, 8),
+    //   salary: 70000,
+    // },{
+    //   id: "",
+    //   name: "Josh Castolome",
+    //   tin: "123-456-789",
+    //   type: 1,
+    //   birthDate: new Date(1994, 2, 8),
+    //   salary: 70000,
+    // },{
+    //   id: "",
+    //   name: "Joshua 2 Santos",
+    //   tin: "123-456-789",
+    //   type: 1,
+    //   birthDate: new Date(1994, 2, 8),
+    //   salary: 70000,
+    // }];
 }

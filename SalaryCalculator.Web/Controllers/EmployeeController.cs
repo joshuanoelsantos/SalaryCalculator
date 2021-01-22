@@ -68,7 +68,7 @@ namespace SalaryCalculator.Web.Controllers
                 BirthDate = birthDateOrError.Value,
                 TIN = tinOrError.Value,
                 Salary = salaryOrError.Value,
-                EmployeeType = dto.EmployeeType
+                EmployeeType = dto.Type
             };
 
             return new EmployeeReadDto(await _service.Create(employee));
@@ -105,7 +105,7 @@ namespace SalaryCalculator.Web.Controllers
             employee.BirthDate = birthDateOrError.Value;
             employee.TIN = tinOrError.Value;
             employee.Salary = salaryOrError.Value;
-            employee.EmployeeType = dto.EmployeeType;
+            employee.EmployeeType = dto.Type;
 
             return new EmployeeReadDto(await _service.Update(employee));
         }
