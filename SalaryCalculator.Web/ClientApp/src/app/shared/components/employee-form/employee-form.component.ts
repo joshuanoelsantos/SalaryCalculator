@@ -49,8 +49,8 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   get value(): Employee {
-    const leave = cloneDeep(this.form.value as Employee);
+    const employee = cloneDeep(this.form.value as Employee);
 
-    return leave;
+    return employee;
   }
 }

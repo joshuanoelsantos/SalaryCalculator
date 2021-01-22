@@ -9,11 +9,11 @@ namespace SalaryCalculator.Infrastructure
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        public List<Employee> employees;
+        private List<Employee> _employees;
 
         public EmployeeRepository()
         {
-            employees = new List<Employee>()
+            _employees = new List<Employee>()
             {
                 new Employee()
                 {
@@ -28,7 +28,7 @@ namespace SalaryCalculator.Infrastructure
 
         public Task<Employee> Find(Guid employeeId)
         {
-            var employee = employees
+            var employee = _employees
                 .Where(x => x.Id == employeeId)
                 .FirstOrDefault();
 
@@ -37,12 +37,12 @@ namespace SalaryCalculator.Infrastructure
 
         public Task<List<Employee>> GetAll()
         {
-            return Task.FromResult(employees.ToList());
+            return Task.FromResult(_employees.ToList());
         }
 
         public Task<Employee> Create(Employee employee)
         {
-            employees.Add(employee);
+            _employees.Add(employee);
 
             return Task.FromResult(employee);
         }
@@ -64,7 +64,7 @@ namespace SalaryCalculator.Infrastructure
         {
             var employee = await Find(employeeId);
 
-            employees.Remove(employee);
+            _employees.Remove(employee);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace SalaryCalculator.Infrastructure.Tests
 
             // GetAll
             List<Employee> employees = await repository.GetAll();
-            employees.Count.Should().Be(0);
+            employees.Count.Should().Be(1);
 
             // Create
             var name = Name.Create("Joshua Santos").Value;
@@ -34,7 +34,7 @@ namespace SalaryCalculator.Infrastructure.Tests
                 });
 
             employees = await repository.GetAll();
-            employees.Count.Should().Be(1);
+            employees.Count.Should().Be(2);
 
             createdEmployee.Name.Should().Be(name);
             createdEmployee.BirthDate.Should().Be(birthDate);
@@ -63,7 +63,7 @@ namespace SalaryCalculator.Infrastructure.Tests
             var updatedEmployee = await repository.Update(fetchedEmployee);
 
             employees = await repository.GetAll();
-            employees.Count.Should().Be(1);
+            employees.Count.Should().Be(2);
 
             updatedEmployee.Name.Should().Be(name2);
             updatedEmployee.BirthDate.Should().Be(birthDate2);
@@ -74,7 +74,7 @@ namespace SalaryCalculator.Infrastructure.Tests
             await repository.Delete(updatedEmployee.Id);
 
             employees = await repository.GetAll();
-            employees.Count.Should().Be(0);
+            employees.Count.Should().Be(1);
 
             fetchedEmployee = await repository.Find(updatedEmployee.Id);
             fetchedEmployee.Should().BeNull();

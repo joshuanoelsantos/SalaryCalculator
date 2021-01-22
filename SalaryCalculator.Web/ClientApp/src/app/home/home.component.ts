@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
 
   employees: Employee[];
 
+  readonly employeeDialogFormWidth: "600px";
+
   constructor(private employeeService: EmployeeService, private dialog: MatDialog){}
 
   ngOnInit() {
@@ -56,28 +58,28 @@ export class HomeComponent implements OnInit {
 
   public editEmployee() {
     const dialogRef = this.dialog.open(EditEmployeeDialog, {
+      width: this.employeeDialogFormWidth,
       data:{
-        width: '600px',
         employee: this.employee
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result));
   }
 
   private createNewEmployee() {
     const dialogRef = this.dialog.open(CreateEmployeeDialog, {
-      width: '600px'
+      width: this.employeeDialogFormWidth
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      
-      if(result) {
-        this.refreshListWithSavedEmployee(result);
-      }
+    dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result));
+  }
 
-    });
+  private afterSaveFunction(result)
+  {
+    if(result) {
+      this.refreshListWithSavedEmployee(result);
+    }
   }
 
   
@@ -94,6 +96,7 @@ export class HomeComponent implements OnInit {
 
           if(filteredList.length) {
             this.selectedEmployee = filteredList[0];
+            this.employee = filteredList[0];
           }
           
         } else {
