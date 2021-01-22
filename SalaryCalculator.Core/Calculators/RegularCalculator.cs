@@ -12,14 +12,14 @@ namespace SalaryCalculator.Core
         {
         }
 
-        public override Salary ComputeSalary(decimal daysAbsent)
+        public override decimal ComputeSalary(decimal daysAbsent)
         {
             decimal absentDeduction = (_employee.Salary.Value / DaysPerMonth) * daysAbsent;
             decimal taxDeduction = _employee.Salary.Value * TaxRate;
 
             decimal computedSalary = _employee.Salary.Value - absentDeduction - taxDeduction;
 
-            return computedSalary;
+            return computedSalary.Round();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SalaryCalculator.SharedKernel
 
         public static Result<Salary> Create(decimal value)
         {
-            value = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            value = value.Round();
 
             if (value <= 0)
                 return Result.Failure<Salary>("Salary should not be less than or equal to zero");

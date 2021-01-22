@@ -11,7 +11,7 @@ namespace SalaryCalculator.Core
         {
         }
 
-        public override Salary ComputeSalary(decimal input)
+        public override decimal ComputeSalary(decimal input)
         {
             return DefaultEmptySalary;
         }

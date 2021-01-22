@@ -31,9 +31,9 @@ namespace SalaryCalculator.Core.UnitTests
 
             Calculator calculator = new CalculatorFactory().Create(_employee);
 
-            Salary salary = calculator.ComputeSalary(absent);
+            decimal salary = calculator.ComputeSalary(absent);
 
-            salary.Value.Should().Be(expectedSalary);
+            salary.Should().Be(expectedSalary);
         }
 
         [Theory]
@@ -48,9 +48,9 @@ namespace SalaryCalculator.Core.UnitTests
 
             Calculator calculator = new CalculatorFactory().Create(_employee);
 
-            Salary salary = calculator.ComputeSalary(absent);
+            decimal salary = calculator.ComputeSalary(absent);
 
-            salary.Value.Should().Be(expectedSalary);
+            salary.Should().Be(expectedSalary);
         }
     }
 }

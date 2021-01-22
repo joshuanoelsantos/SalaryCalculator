@@ -11,6 +11,6 @@ namespace SalaryCalculator.Core
             _employee = employee;
         }
 
-        public abstract Salary ComputeSalary(decimal input);
+        public abstract decimal ComputeSalary(decimal input);
     }
 }

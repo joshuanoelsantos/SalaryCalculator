@@ -9,9 +9,10 @@ namespace SalaryCalculator.Core
         {
         }
 
-        public override Salary ComputeSalary(decimal daysWorked)
+        public override decimal ComputeSalary(decimal daysWorked)
         {
-            return daysWorked * _employee.Salary.Value;
+            decimal computedSalary = daysWorked * _employee.Salary.Value;
+            return computedSalary.Round();
         }
     }
 }

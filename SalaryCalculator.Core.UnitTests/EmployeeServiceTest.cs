@@ -73,6 +73,7 @@ namespace SalaryCalculator.Core.UnitTests
         [Theory]
         [InlineData(1, 16_690.91)]
         [InlineData(0, 17_600)]
+        [InlineData(24, -4_218.18)]
         public void WhenCalculateSalaryOfRegularEmployee_CalculateCorrectly(
             decimal absent,
             decimal expectedSalary)
@@ -82,26 +83,28 @@ namespace SalaryCalculator.Core.UnitTests
 
             Calculator calculator = new CalculatorFactory().Create(_employee);
 
-            Salary salary = calculator.ComputeSalary(absent);
+            decimal salary = calculator.ComputeSalary(absent);
 
-            salary.Value.Should().Be(expectedSalary);
+            salary.Should().Be(expectedSalary);
         }
 
         [Theory]
-        [InlineData(15.5, 7_750)]
-        [InlineData(22, 11_000)]
+        [InlineData(15.5, 500, 7_750)]
+        [InlineData(22, 500, 11_000)]
+        [InlineData(15.75, 537.38, 8_463.74)]
         public void WhenCalculateSalaryOfContractualEmployee_CalculateCorrectly(
             decimal absent,
+            decimal dailySalary,
             decimal expectedSalary)
         {
             _employee.EmployeeType = EmployeeType.Contractual;
-            _employee.Salary = 500;
+            _employee.Salary = dailySalary;
 
             Calculator calculator = new CalculatorFactory().Create(_employee);
 
-            Salary salary = calculator.ComputeSalary(absent);
+            decimal salary = calculator.ComputeSalary(absent);
 
-            salary.Value.Should().Be(expectedSalary);
+            salary.Should().Be(expectedSalary);
         }
     }
 }
