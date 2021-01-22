@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { CreateEmployeeDialog } from '../shared/components/create-employee-dialog/create-employee-dialog.component';
 import { EditEmployeeDialog } from '../shared/components/edit-employee-dialog/edit-employee-dialog.component';
 import { Employee } from '../shared/employee';
@@ -23,25 +23,15 @@ export class HomeComponent implements OnInit {
 
   readonly employeeDialogFormWidth: "600px";
 
-  constructor(private employeeService: EmployeeService, private dialog: MatDialog){}
+  constructor(
+    private employeeService: EmployeeService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar){}
 
   ngOnInit() {
 
-    this.employeeService
-      .getAll()
-      .subscribe((data) => {
-        this.employees = data;
-
-        if(this.employees && this.employees.length) {
-          this.selectedEmployee = this.employees[0];
-        } else {
-          this.selectedEmployee = null;
-        }
-
-      });
+    this.refreshList();
   }
-
-  
 
   onEmployeeSelection(selectedEmployee: Employee, event, isOptionCreateNew: boolean) {
     if (event.isUserInput) {
@@ -56,6 +46,35 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  public deleteEmployee() {
+    this.employeeService
+      .delete(this.employee.id)
+      .subscribe(
+        (data) => {
+          this.snackBar.open("Successfully deleted.", null, {
+            duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary'],
+          });
+
+          this.refreshList();
+        },
+        (error) => {
+
+          let errorMessage: string;
+
+          if(error && error.error && error.error.error) {
+            errorMessage = error.error.error;
+          } else {
+            errorMessage = "Cannot save your data this time. Please try again later.";
+          }
+
+          this.snackBar.open(errorMessage, null, {
+            duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-warn'],
+          });
+        });
+  }
+
   public editEmployee() {
     const dialogRef = this.dialog.open(EditEmployeeDialog, {
       width: this.employeeDialogFormWidth,
@@ -64,7 +83,7 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result));
+    dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result, true));
   }
 
   private createNewEmployee() {
@@ -72,20 +91,34 @@ export class HomeComponent implements OnInit {
       width: this.employeeDialogFormWidth
     });
 
-    dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result));
+    dialogRef.afterClosed().subscribe((result) => this.afterSaveFunction(result,false));
   }
 
-  private afterSaveFunction(result)
+  private afterSaveFunction(result, isUpdate: boolean)
   {
     if(result) {
-      this.refreshListWithSavedEmployee(result);
+      this.refreshListWithSavedEmployee(result, isUpdate);
     }
   }
 
-  
+  private refreshList() {
+    this.employeeService
+      .getAll()
+      .subscribe((data) => {
+        this.employees = data;
 
+        if (this.employees && this.employees.length) {
+          this.selectedEmployee = this.employees[0];
+          this.employee = this.employees[0];
+        } else {
+          this.selectedEmployee = null;
+          this.employee = null;
+        }
 
-  private refreshListWithSavedEmployee(employee: Employee) {
+      });
+  }
+
+  private refreshListWithSavedEmployee(employee: Employee, isUpdate: boolean) {
     this.employeeService
       .getAll()
       .subscribe((data) => {
@@ -101,7 +134,13 @@ export class HomeComponent implements OnInit {
           
         } else {
           this.selectedEmployee = null;
+          this.employee = null;
         }
+
+        this.snackBar.open(`Successfully ${isUpdate ? 'updated' : 'created'}.`, null, {
+          duration: 5000,
+          panelClass: ['mat-toolbar', 'mat-primary'],
+        });
 
       });
   }

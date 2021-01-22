@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import {
   MatMomentDateModule,
@@ -60,6 +61,7 @@ import { EditEmployeeDialog } from 'src/app/shared/components/edit-employee-dial
     MatInputModule,
     MatMomentDateModule,
     MatSelectModule,
+    MatSnackBarModule,
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

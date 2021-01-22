@@ -39,7 +39,6 @@ export class EmployeeFormComponent implements OnInit {
 	ngOnInit(): void {
 		if (this.employee != null) {
 			this.form.patchValue(this.employee);
-		} else {
 		}
 	}
 
