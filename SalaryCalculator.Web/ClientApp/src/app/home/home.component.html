@@ -1,14 +1,59 @@
-<h1>Hello, world!</h1>
-<p>Welcome to your new single-page application, built with:</p>
-<ul>
-  <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-  <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
-  <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-</ul>
-<p>To help you get started, we've also set up:</p>
-<ul>
-  <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-  <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-  <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
-</ul>
-<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<div class="wrapper align-center">
+  <mat-card>
+    <mat-card-title>
+      Employee Search
+    </mat-card-title>
+    <mat-card-content style="text-align:center">
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field>
+            <mat-label>Select or add a new employee</mat-label>
+            <mat-select>
+              <mat-option
+                (onSelectionChange)="onEmployeeSelection(employee, $event, true)">
+                --Create New--
+              </mat-option>
+              <mat-option
+                (onSelectionChange)="onEmployeeSelection(employee, $event, false)"
+                *ngFor="let employee of employees"
+                [value]="employee">
+                {{ employee.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <table class="table _table">
+            <tbody>
+              <tr>
+                <td class="font-bold">Name:</td>
+                <td>{{ employee?.name }}</td>
+                <td class="font-bold">Birth Date:</td>
+                <td>{{ employee?.birthDate | date }}</td>
+              </tr>
+              <tr>
+                <td class="font-bold">TIN:</td>
+                <td>{{ employee?.tin }}</td>
+                <td class="font-bold">Employee Type:</td>
+                <td>{{ employee?.type }}</td>
+              </tr>
+              <tr>
+                <td class="font-bold">Salary:</td>
+                <td>{{ employee?.salary | currency:"PHP" }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button mat-raised-button color="primary">Calculate Salary</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

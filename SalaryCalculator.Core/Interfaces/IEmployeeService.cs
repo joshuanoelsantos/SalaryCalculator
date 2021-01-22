@@ -17,5 +17,6 @@ namespace SalaryCalculator.Core
         Task<Employee> Find(Guid employeeId);
 
         Task<List<Employee>> GetAll();
+        Task<List<Employee>> Search(string searchedEmployee);
     }
 }

@@ -29,6 +29,13 @@ namespace SalaryCalculator.Infrastructure
             return Task.FromResult(employees.ToList());
         }
 
+        public Task<List<Employee>> Search(string searchedName)
+        {
+            return Task.FromResult(employees
+                .Where(x => x.Name.Value.Contains(searchedName))
+                .ToList());
+        }
+
         public Task<Employee> Create(Employee employee)
         {
             employees.Add(employee);

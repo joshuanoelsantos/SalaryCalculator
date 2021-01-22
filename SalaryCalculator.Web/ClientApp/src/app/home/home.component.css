@@ -1,0 +1,50 @@
+.wrapper {
+  margin: 50px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+._table {
+  max-width: 500px;
+  margin: auto;
+}
+
+._table > thead > tr > th:first-child,
+._table > tfoot > tr > th:first-child {
+  text-align: left;
+}
+
+._table > thead > tr > th:last-child,
+._table > tfoot > tr > th:last-child,
+._table > thead > tr > th,
+._table > tfoot > tr > th {
+  text-align: right;
+}
+
+._table > tr > td,
+._table > tbody > tr > td,
+._table > tbody > tr > th {
+  text-align: right;
+}
+
+._table > tr > td:first-child,
+._table > tbody > tr > td:first-child,
+._table > tbody > tr > th:first-child {
+  text-align: left;
+}
+
+._border {
+  border-top: thin solid rgba(0, 0, 0, 0.17);
+}

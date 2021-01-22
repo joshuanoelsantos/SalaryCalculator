@@ -10,6 +10,8 @@ namespace SalaryCalculator.Core
 
         Task<List<Employee>> GetAll();
 
+        Task<List<Employee>> Search(string searchedName);
+
         Task<Employee> Create(Employee employee);
 
         Task<Employee> Update(Employee employee);
